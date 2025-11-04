@@ -56,8 +56,8 @@ public class CalculatorModel implements CalculatorModelInterface {
     }
 
     @Override
-    public void push(double value) {
-        memory.push(value);
+    public void push() {
+        memory.push(accumulator);
     }
 
     @Override
@@ -77,16 +77,21 @@ public class CalculatorModel implements CalculatorModelInterface {
 
     @Override
     public void swap() {
-        if (memory.size() >= 1) {
-            double temp = accumulator;
-            accumulator = memory.pop();
-            memory.push(temp);
+        if (memory.size() >= 2) {
+            double temp1 = memory.pop();
+            double temp2 = memory.pop();
+            memory.push(temp1);
+            memory.push(temp2);
         }
     }
 
     @Override
     public void clear() {
         accumulator = 0.0;
+    }
+
+    @Override
+    public void dropAll() {
         memory.clear();
     }
 

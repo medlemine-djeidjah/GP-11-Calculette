@@ -8,9 +8,10 @@ public interface CalculatorModelInterface {
     double multiply();
     double divide();
     double opposite();
-    void push(double value);
+    void push();
     double pop();
     void drop();
+    void dropAll();
     void swap();
     void clear();
     double getAccumulator();

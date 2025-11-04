@@ -148,7 +148,9 @@ public class CalculatorGUI extends Application implements CalculatorGUIInterface
     @Override
     public void change(List<Double> stackData) {
         stackDisplay.getItems().clear();
-        stackDisplay.getItems().addAll(stackData);
+        for (int i = stackData.size() - 1; i >= 0; i--) {
+            stackDisplay.getItems().add(stackData.get(i));
+        }
     }
 
 

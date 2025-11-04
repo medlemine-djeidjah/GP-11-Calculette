@@ -1,9 +1,9 @@
 package com.g11.app.controller;
 
+import java.util.List;
+
 import com.g11.app.model.CalculatorModelInterface;
 import com.g11.app.view.CalculatorGUIInterface;
-
-import java.util.List;
 
 public class CalculatorController implements CalculatorControllerInterface, CalculatorEventHandler {
     private CalculatorModelInterface model;
@@ -75,20 +75,23 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
         if (inputBuffer.length() > 0) {
             try {
                 double value = Double.parseDouble(inputBuffer.toString());
-                model.push(model.getAccumulator());
                 model.setAccumulator(value);
                 inputBuffer.setLength(0);
-                updateDisplay();
             } catch (NumberFormatException e) {
                 handleError("Invalid number");
+                return;
             }
         }
+        model.push();
+        updateDisplay();
     }
 
     private void handleOperation(Runnable operation) {
         try {
             if (inputBuffer.length() > 0) {
-                handleEnter();
+                double value = Double.parseDouble(inputBuffer.toString());
+                model.setAccumulator(value);
+                inputBuffer.setLength(0);
             }
             operation.run();
             updateDisplay();
@@ -100,7 +103,9 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
     private void handleDivisionOperation() {
         try {
             if (inputBuffer.length() > 0) {
-                handleEnter();
+                double value = Double.parseDouble(inputBuffer.toString());
+                model.setAccumulator(value);
+                inputBuffer.setLength(0);
             }
             model.divide();
             updateDisplay();
@@ -119,7 +124,14 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
 
     private void handleSwap() {
         if (inputBuffer.length() > 0) {
-            handleEnter();
+            try {
+                double value = Double.parseDouble(inputBuffer.toString());
+                model.setAccumulator(value);
+                inputBuffer.setLength(0);
+            } catch (NumberFormatException e) {
+                handleError("Invalid number");
+                return;
+            }
         }
         model.swap();
         updateDisplay();
