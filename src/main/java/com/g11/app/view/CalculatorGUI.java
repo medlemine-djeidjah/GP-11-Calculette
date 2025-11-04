@@ -67,7 +67,7 @@ public class CalculatorGUI extends Application implements CalculatorGUIInterface
     private void initializeComponents() {
         accuDisplay = new TextField("0");
         accuDisplay.setEditable(false);
-        accuDisplay.setStyle("-fx-font-size: 18; -fx-alignment: center-right;");
+        accuDisplay.setStyle("-fx-font-size: 18; -fx-alignment: center-right; -fx-padding: 5 10 5 10;");
 
         stackDisplay = new ListView<>();
         stackDisplay.setPrefHeight(150);

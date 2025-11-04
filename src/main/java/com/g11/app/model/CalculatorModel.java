@@ -58,6 +58,7 @@ public class CalculatorModel implements CalculatorModelInterface {
     @Override
     public void push() {
         memory.push(accumulator);
+        accumulator = 0.0;
     }
 
     @Override

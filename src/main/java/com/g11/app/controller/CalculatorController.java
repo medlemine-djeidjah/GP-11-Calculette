@@ -9,11 +9,13 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
     private CalculatorModelInterface model;
     private CalculatorGUIInterface view;
     private StringBuilder inputBuffer;
+    private boolean clearDisplayOnNextDigit;
 
     public CalculatorController(CalculatorModelInterface model, CalculatorGUIInterface view) {
         this.model = model;
         this.view = view;
         this.inputBuffer = new StringBuilder();
+        this.clearDisplayOnNextDigit = false;
         view.setEventHandler(this);
         updateDisplay();
     }
@@ -67,6 +69,10 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
     }
 
     private void handleDigitInput(String digit) {
+        if (clearDisplayOnNextDigit || inputBuffer.length() == 0) {
+            inputBuffer.setLength(0);
+            clearDisplayOnNextDigit = false;
+        }
         inputBuffer.append(digit);
         updateAccumulatorDisplay();
     }
@@ -83,6 +89,7 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
             }
         }
         model.push();
+        clearDisplayOnNextDigit = true;
         updateDisplay();
     }
 
@@ -94,6 +101,7 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
                 inputBuffer.setLength(0);
             }
             operation.run();
+            clearDisplayOnNextDigit = true;
             updateDisplay();
         } catch (Exception e) {
             handleError(e.getMessage());
@@ -108,6 +116,7 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
                 inputBuffer.setLength(0);
             }
             model.divide();
+            clearDisplayOnNextDigit = true;
             updateDisplay();
         } catch (ArithmeticException e) {
             handleError("Division by zero");
@@ -119,6 +128,7 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
     private void handleClear() {
         inputBuffer.setLength(0);
         model.clear();
+        clearDisplayOnNextDigit = false;
         updateDisplay();
     }
 
@@ -134,15 +144,18 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
             }
         }
         model.swap();
+        clearDisplayOnNextDigit = true;
         updateDisplay();
     }
 
     private void handleDrop() {
         if (inputBuffer.length() > 0) {
             inputBuffer.setLength(0);
+            clearDisplayOnNextDigit = false;
             updateAccumulatorDisplay();
         } else {
             model.drop();
+            clearDisplayOnNextDigit = true;
             updateDisplay();
         }
     }
@@ -157,6 +170,7 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
             updateAccumulatorDisplay();
         } else {
             model.opposite();
+            clearDisplayOnNextDigit = true;
             updateDisplay();
         }
     }
@@ -175,7 +189,15 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
         if (inputBuffer.length() > 0) {
             view.change(inputBuffer.toString());
         } else {
-            view.change(String.valueOf(model.getAccumulator()));
+            double value = model.getAccumulator();
+            // Format the number to avoid scientific notation and ensure proper display of negatives
+            if (value == (long) value) {
+                // Display as integer if it's a whole number
+                view.change(String.valueOf((long) value));
+            } else {
+                // Display as decimal with proper formatting
+                view.change(String.format("%.10g", value));
+            }
         }
     }
 
