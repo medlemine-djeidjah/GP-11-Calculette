@@ -15,11 +15,15 @@ public class CalculatorGUI extends Application implements CalculatorGUIInterface
     public void start(Stage stage) {
         this.primaryStage = stage;
         VBox root = new VBox(10);
-        calculatorScene = new CalculatorScene(root, 300, 400);
+        calculatorScene = new CalculatorScene(root, 350, 500);
 
-        stage.setTitle("RPN Calculator");
+        stage.setTitle("RPN Calculator - Enhanced");
         stage.setScene(calculatorScene);
         stage.setResizable(false);
+        stage.setMinWidth(350);
+        stage.setMinHeight(500);
+        
+        stage.getIcons().clear();
         affiche();
     }
 
