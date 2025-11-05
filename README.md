@@ -56,11 +56,10 @@ The application is divided into three main packages:
 ### ✨ Features
 
 *   Basic arithmetic operations (addition, subtraction, multiplication, division)
-*   Clear (C) and All Clear (AC) functionality
-*   Responsive user interface
+*   RPN Notation 
 
 ### 💻 Technologies
 
 *   **Java**: Core programming language
-*   **Swing**: For the graphical user interface (GUI)
+*   **JAVAFX**: For the graphical user interface (GUI)
 *   **Maven**: For project management and dependencies
