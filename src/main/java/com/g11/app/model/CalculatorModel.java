@@ -62,11 +62,10 @@ public class CalculatorModel implements CalculatorModelInterface {
     }
 
     @Override
-    public double pop() {
+    public void pop() {
         if (!memory.isEmpty()) {
             accumulator = memory.pop();
         }
-        return accumulator;
     }
 
     @Override

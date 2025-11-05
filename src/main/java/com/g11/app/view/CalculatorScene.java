@@ -15,7 +15,7 @@ public class CalculatorScene extends Scene {
     private ListView<Double> stackDisplay;
     private Button[] numberButtons;
     private Button addButton, subtractButton, multiplyButton, divideButton;
-    private Button enterButton, clearButton, swapButton, dropButton, oppositeButton;
+    private Button enterButton, clearButton, swapButton, dropButton, oppositeButton, popButton;
     private CalculatorEventHandler eventHandler;
 
     public CalculatorScene(VBox root, double width, double height) {
@@ -47,9 +47,10 @@ public class CalculatorScene extends Scene {
         swapButton = new Button("Swap");
         dropButton = new Button("Drop");
         oppositeButton = new Button("+/-");
+        popButton = new Button("Pop");
 
         Button[] operationButtons = {addButton, subtractButton, multiplyButton, divideButton,
-                                   enterButton, clearButton, swapButton, dropButton, oppositeButton};
+                                   enterButton, clearButton, swapButton, dropButton, oppositeButton, popButton};
         for (Button button : operationButtons) {
             button.setPrefSize(60, 40);
         }
@@ -86,6 +87,7 @@ public class CalculatorScene extends Scene {
         buttonGrid.add(clearButton, 0, 4);
         buttonGrid.add(dropButton, 1, 4);
         buttonGrid.add(swapButton, 2, 4);
+        buttonGrid.add(popButton, 3, 4);
 
         root.getChildren().add(buttonGrid);
     }
@@ -112,6 +114,7 @@ public class CalculatorScene extends Scene {
         swapButton.setOnAction(e -> eventHandler.onSwapPressed());
         dropButton.setOnAction(e -> eventHandler.onDropPressed());
         oppositeButton.setOnAction(e -> eventHandler.onOppositePressed());
+        popButton.setOnAction(e -> eventHandler.onPopPressed());
     }
 
     public TextField getAccuDisplay() {

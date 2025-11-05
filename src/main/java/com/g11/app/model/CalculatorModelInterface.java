@@ -9,7 +9,7 @@ public interface CalculatorModelInterface {
     double divide();
     double opposite();
     void push();
-    double pop();
+    void pop();
     void drop();
     void dropAll();
     void swap();

@@ -8,4 +8,5 @@ public interface CalculatorEventHandler {
     void onSwapPressed();
     void onDropPressed();
     void onOppositePressed();
+    void onPopPressed();
 }

@@ -68,6 +68,11 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
         handleOpposite();
     }
 
+    @Override
+    public void onPopPressed() {
+        handlePop();
+    }
+
     private void handleDigitInput(String digit) {
         if (clearDisplayOnNextDigit || inputBuffer.length() == 0) {
             inputBuffer.setLength(0);
@@ -173,6 +178,12 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
             clearDisplayOnNextDigit = true;
             updateDisplay();
         }
+    }
+
+    private void handlePop() {
+        model.pop();
+        clearDisplayOnNextDigit = true;
+        updateDisplay();
     }
 
     private void handleError(String message) {
