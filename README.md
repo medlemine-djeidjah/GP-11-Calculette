@@ -4,8 +4,8 @@ A simple yet powerful calculator application.
 
 ## Authors : Groupe 11
 
-- Djeidjah Mohamed Lemine
-- Moustapha Check Abdallahi
+- DJEIDJAH Mohamed Lemine
+- CHEIKH ABDELLAHI Moustapha
 
 ---
 
