@@ -10,7 +10,7 @@ public interface CalculatorGUIInterface {
     void start(Stage primaryStage);
     void affiche();
     void change(String accu);
-    void change(List<Double> stackData);
+    void change(List<Double> stackData); 
     void setEventHandler(CalculatorEventHandler handler);
 
 }

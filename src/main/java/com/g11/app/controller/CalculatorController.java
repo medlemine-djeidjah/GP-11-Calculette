@@ -190,13 +190,10 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
             view.change(inputBuffer.toString());
         } else {
             double value = model.getAccumulator();
-            // Format the number to avoid scientific notation and ensure proper display of negatives
             if (value == (long) value) {
-                // Display as integer if it's a whole number
-                view.change(String.valueOf((long) value));
+         view.change(String.valueOf((long) value));
             } else {
-                // Display as decimal with proper formatting
-                view.change(String.format("%.10g", value));
+         view.change(String.format("%.10g", value));
             }
         }
     }
@@ -207,8 +204,6 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
 
     @Override
     public void change(String accu) {
-        // This method is required by the interface, but its implementation is not clear from the context.
-        // Assuming it should update the accumulator in the model.
         try {
             double value = Double.parseDouble(accu);
             model.setAccumulator(value);
@@ -220,8 +215,6 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
 
     @Override
     public void change(List<Double> stackData) {
-        // This method is required by the interface, but its implementation is not clear from the context.
-        // Assuming it should update the stack in the model.
         model.setStackData(stackData);
         updateDisplay();
     }
