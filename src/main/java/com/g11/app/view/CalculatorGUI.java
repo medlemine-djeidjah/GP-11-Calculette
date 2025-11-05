@@ -1,11 +1,12 @@
 package com.g11.app.view;
 
+import java.util.List;
+
 import com.g11.app.controller.CalculatorEventHandler;
+
 import javafx.application.Application;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 public class CalculatorGUI extends Application implements CalculatorGUIInterface {
     private CalculatorScene calculatorScene;
@@ -17,12 +18,12 @@ public class CalculatorGUI extends Application implements CalculatorGUIInterface
         VBox root = new VBox(10);
         calculatorScene = new CalculatorScene(root, 350, 500);
 
-        stage.setTitle("RPN Calculator - Enhanced");
+        stage.setTitle("RPN Calculator - G11");
         stage.setScene(calculatorScene);
         stage.setResizable(false);
         stage.setMinWidth(350);
         stage.setMinHeight(500);
-        
+
         stage.getIcons().clear();
         affiche();
     }

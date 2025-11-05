@@ -16,6 +16,7 @@ public class CalculatorScene extends Scene {
     private Button[] numberButtons;
     private Button addButton, subtractButton, multiplyButton, divideButton;
     private Button enterButton, clearButton, swapButton, dropButton, oppositeButton, popButton;
+    private Button commaButton;
     private CalculatorEventHandler eventHandler;
 
     public CalculatorScene(VBox root, double width, double height) {
@@ -48,7 +49,7 @@ public class CalculatorScene extends Scene {
                         setText(null);
                         setStyle("");
                     } else {
-                        setText(String.format("%.6g", item));
+                        setText(formatNumber(item));
                         setStyle("-fx-background-color: transparent; -fx-text-fill: #ffffff; " +
                                "-fx-font-size: 16; -fx-padding: 8 12 8 12;");
                     }
@@ -73,6 +74,7 @@ public class CalculatorScene extends Scene {
         dropButton = new Button("Drop");
         oppositeButton = new Button("±");
         popButton = new Button("Pop");
+        commaButton = new Button(",");
 
         Button[] operationButtons = {addButton, subtractButton, multiplyButton, divideButton};
         for (Button button : operationButtons) {
@@ -85,6 +87,9 @@ public class CalculatorScene extends Scene {
             button.setPrefSize(70, 50);
             styleFunctionButton(button);
         }
+        
+        commaButton.setPrefSize(70, 50);
+        styleNumberButton(commaButton);
     }
 
     private void setupLayout(VBox root) {
@@ -115,7 +120,7 @@ public class CalculatorScene extends Scene {
         buttonGrid.add(subtractButton, 3, 2);
 
         buttonGrid.add(numberButtons[0], 0, 3);
-        buttonGrid.add(oppositeButton, 1, 3);
+        buttonGrid.add(commaButton, 1, 3);
         buttonGrid.add(enterButton, 2, 3);
         buttonGrid.add(addButton, 3, 3);
 
@@ -123,6 +128,8 @@ public class CalculatorScene extends Scene {
         buttonGrid.add(dropButton, 1, 4);
         buttonGrid.add(swapButton, 2, 4);
         buttonGrid.add(popButton, 3, 4);
+        
+        buttonGrid.add(oppositeButton, 0, 5);
 
         root.getChildren().add(buttonGrid);
     }
@@ -150,6 +157,7 @@ public class CalculatorScene extends Scene {
         dropButton.setOnAction(e -> eventHandler.onDropPressed());
         oppositeButton.setOnAction(e -> eventHandler.onOppositePressed());
         popButton.setOnAction(e -> eventHandler.onPopPressed());
+        commaButton.setOnAction(e -> eventHandler.onCommaPressed());
     }
 
     public TextField getAccuDisplay() {
@@ -158,6 +166,19 @@ public class CalculatorScene extends Scene {
 
     public ListView<Double> getStackDisplay() {
         return stackDisplay;
+    }
+
+    private String formatNumber(double value) {
+        if (value == (long) value) {
+            return String.valueOf((long) value);
+        } else {
+            String formatted = String.format("%.10g", value);
+            // Remove trailing zeros after decimal point
+            if (formatted.contains(".")) {
+                formatted = formatted.replaceAll("0+$", "").replaceAll("\\.$", "");
+            }
+            return formatted;
+        }
     }
 
     private void styleNumberButton(Button button) {

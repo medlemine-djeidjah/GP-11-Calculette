@@ -73,6 +73,11 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
         handlePop();
     }
 
+    @Override
+    public void onCommaPressed() {
+        handleComma();
+    }
+
     private void handleDigitInput(String digit) {
         if (clearDisplayOnNextDigit || inputBuffer.length() == 0) {
             inputBuffer.setLength(0);
@@ -186,6 +191,20 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
         updateDisplay();
     }
 
+    private void handleComma() {
+        if (clearDisplayOnNextDigit || inputBuffer.length() == 0) {
+            inputBuffer.setLength(0);
+            inputBuffer.append("0");
+            clearDisplayOnNextDigit = false;
+        }
+        
+        // Only add comma if one doesn't already exist
+        if (inputBuffer.indexOf(".") == -1) {
+            inputBuffer.append(".");
+            updateAccumulatorDisplay();
+        }
+    }
+
     private void handleError(String message) {
         view.change("Error: " + message);
         inputBuffer.setLength(0);
@@ -201,11 +220,20 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
             view.change(inputBuffer.toString());
         } else {
             double value = model.getAccumulator();
-            if (value == (long) value) {
-         view.change(String.valueOf((long) value));
-            } else {
-         view.change(String.format("%.10g", value));
+            view.change(formatNumber(value));
+        }
+    }
+
+    private String formatNumber(double value) {
+        if (value == (long) value) {
+            return String.valueOf((long) value);
+        } else {
+            String formatted = String.format("%.10g", value);
+            // Remove trailing zeros after decimal point
+            if (formatted.contains(".")) {
+                formatted = formatted.replaceAll("0+$", "").replaceAll("\\.$", "");
             }
+            return formatted;
         }
     }
 
