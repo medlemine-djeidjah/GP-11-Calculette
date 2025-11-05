@@ -17,6 +17,5 @@ public interface CalculatorModelInterface {
     double getAccumulator();
     void setAccumulator(double value);
     List<Double> getStackData();
-    void changeAccu(String value);
-    void changeStackData(List<Double> stackData);
+    void setStackData(List<Double> stackData);
 }

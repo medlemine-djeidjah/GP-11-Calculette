@@ -206,14 +206,23 @@ public class CalculatorController implements CalculatorControllerInterface, Calc
     }
 
     @Override
-    public void changeAccu(String value) {
-        model.changeAccu(value);
-        updateDisplay();
+    public void change(String accu) {
+        // This method is required by the interface, but its implementation is not clear from the context.
+        // Assuming it should update the accumulator in the model.
+        try {
+            double value = Double.parseDouble(accu);
+            model.setAccumulator(value);
+            updateDisplay();
+        } catch (NumberFormatException e) {
+            handleError("Invalid number format");
+        }
     }
 
     @Override
-    public void changeStackData(List<Double> stackData) {
-        model.changeStackData(stackData);
+    public void change(List<Double> stackData) {
+        // This method is required by the interface, but its implementation is not clear from the context.
+        // Assuming it should update the stack in the model.
+        model.setStackData(stackData);
         updateDisplay();
     }
 }

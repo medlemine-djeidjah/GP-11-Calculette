@@ -111,17 +111,7 @@ public class CalculatorModel implements CalculatorModelInterface {
         return new ArrayList<>(memory);
     }
 
-    @Override
-    public void changeAccu(String value) {
-        try {
-            this.accumulator = Double.parseDouble(value);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid number format: " + value);
-        }
-    }
-
-    @Override
-    public void changeStackData(List<Double> stackData) {
+    public void setStackData(List<Double> stackData) {
         memory.clear();
         memory.addAll(stackData);
     }
